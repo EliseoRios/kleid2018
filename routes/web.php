@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,23 +19,58 @@ Route::get('/home', function () {
 
 Auth::routes();
 
+
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/', 'HomeController@index');
 
 	//Usuarios
 	Route::group(['prefix'=>'usuarios'], function(){
+
 	      Route::get('/','UsuariosController@index');
 	      Route::get('datatables','UsuariosController@datatables');
 	      Route::get('editar/{id}','UsuariosController@editar');
 	      Route::get('eliminar/{id}','UsuariosController@eliminar');
+
 	      Route::post('guardar','UsuariosController@guardar');
 	      Route::post('actualizar','UsuariosController@actualizar');
 	      Route::post('update_permisos','UsuariosController@update_permisos');      
 	     
 	});
 
+	//Productos
+	Route::group(['prefix'=>'productos'], function(){
+
+	      Route::get('/','ProductosController@index');
+	      Route::get('datatables','ProductosController@datatables');
+	      Route::get('editar/{id}','ProductosController@editar');
+	      Route::get('eliminar/{id}','ProductosController@eliminar');
+
+	      Route::post('guardar','ProductosController@guardar');
+	      Route::post('actualizar','ProductosController@actualizar');
+	      Route::post('update_permisos','ProductosController@update_permisos');      
+	     
+	});
+
+	//Configuracion/Parametros
+	Route::group(['prefix'=>'parametros'], function(){
+
+		Route::get('/', 'ConfiguracionController@index');
+		Route::get('datatables', 'ConfiguracionController@datatables');
+		Route::get('crear', 'ConfiguracionController@crear');
+		Route::get('ver/{id}', 'ConfiguracionController@ver');
+		Route::get('editar/{id}', 'ConfiguracionController@editar');
+		Route::get('eliminar/{id}', 'ConfiguracionController@eliminar');
+
+		Route::get('obtener/{id}', 'ConfiguracionController@obtener');
+
+		Route::post('guardar','ConfiguracionController@guardar');
+		Route::post('actualizar','ConfiguracionController@actualizar');
+
+	});
+
 	//Clientes
 	/*Route::group(['prefix'=>'clientes'], function(){
+
 		Route::get('/', 'ClientesController@index');
 		Route::get('datatables', 'ClientesController@datatables');
 		Route::get('crear', 'ClientesController@crear');
@@ -48,20 +84,25 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('guardar', 'ClientesController@guardar');
 		Route::post('actualizar', 'ClientesController@actualizar');
 		Route::post('cerrar','ClientesController@cerrar');
+
 	});*/
-	
+
 	//Correos
 	/*Route::group(['prefix'=>'correos'], function(){
+
 		Route::get('/', 'CorreosController@index');
 		Route::get('datatable', 'CorreosController@datatable');
 		Route::get('crear', 'CorreosController@crear');			
 		Route::get('ver/{id}', 'CorreosController@ver');
 		Route::get('finalizar/{id}', 'CorreosController@finalizar');
+
 		Route::post('guardar', 'CorreosController@guardar');
+
 	});*/
-	
+
     //Eventos
 	/*Route::group(['prefix' => 'eventos'],function(){
+
         Route::get('/','EventosController@index');
         Route::get('supervisar','EventosController@supervisar');
         Route::get('datatables','EventosController@datatables');
@@ -70,15 +111,23 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('eliminar/{id}','EventosController@eliminar');
         Route::get('calendario','EventosController@calendario');
         Route::get('ver/{id}','EventosController@ver');
+
         Route::post('imprimir','EventosController@imprimir');   
+
         Route::post('guardar','EventosController@guardar');
         Route::post('actualizar','EventosController@actualizar');
         Route::post('concluir','EventosController@concluir');
+
     	Route::group(['prefix' => 'notas'],function(){
+
             Route::get('obtener_notas/{id}','EventosNotasController@obtener_notas');
             //Route::get('eliminar/{id}','EventosNotasController@eliminar');
+
             Route::post('guardar','EventosNotasController@guardar');
             //Route::post('actualizar','EventosNotasController@actualizar');
+
         });
+
     });*/
+
 });

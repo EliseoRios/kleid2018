@@ -22,7 +22,7 @@ return [
     |
     | This value determines the "environment" your application is currently
     | running in. This may determine how you prefer to configure various
-    | services the application utilizes. Set this in your ".env" file.
+    | services your application utilizes. Set this in your ".env" file.
     |
     */
 
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -160,6 +160,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //Adicionales
+        'Collective\Html\HtmlServiceProvider',
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Vinkla\Hashids\HashidsServiceProvider::class,
+
+
     ],
 
     /*
@@ -208,6 +214,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        //Adicionales
+        'Form' => 'Collective\Html\FormFacade',
+        'Html' => 'Collective\Html\HtmlFacade',
+        'Datatables' => Yajra\DataTables\Facades\DataTables::class,
+        'Hashids' => Vinkla\Hashids\Facades\Hashids::class
 
     ],
 
