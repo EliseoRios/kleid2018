@@ -21,7 +21,8 @@ class CreateProductosDetallesTable extends Migration
 
                 $table->text('color')->nullable();
                 $table->text('talla')->nullable();
-                $table->integer('piezas')->default(0);
+                $table->integer('piezas_disponibles')->default(0);
+                $table->integer('piezas_totales')->default(0);
                 $table->text('detalles')->nullable();
 
                 $table->integer('estatus')->default(1);

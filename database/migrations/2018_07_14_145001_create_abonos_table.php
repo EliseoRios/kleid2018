@@ -19,9 +19,6 @@ class CreateAbonosTable extends Migration
 
                 $table->bigInteger('usuarios_id')->default(0);
                 $table->bigInteger('ventas_id')->default(0);
-                $table->bigInteger('productos_id')->default(0);
-                $table->bigInteger('productosdetalles_id')->default(0);
-                $table->bigInteger('clientes_id')->default(0);
 
                 $table->decimal('abono',19,2)->default(0.00);
 

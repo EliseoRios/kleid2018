@@ -13,12 +13,11 @@ class CreateTicketsTable extends Migration
      */
     public function up()
     {
+        //Solo para ventas directas
         if (!Schema::hasTable('tickets')) {
             Schema::create('tickets', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->bigInteger('usuarios_id')->default(0);
-
-                $table->boolean('tipo')->default(0);            
 
                 $table->date('fecha')->nullable();
                 $table->integer('fecha_unix')->nullable();

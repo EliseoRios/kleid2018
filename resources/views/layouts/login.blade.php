@@ -2,6 +2,8 @@
 <html lang="es">
 
 <head>
+    <meta name="author" content="Eliseo Rios!">
+
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -23,12 +25,31 @@
 
     <!-- Custom Css -->
     <link href="{{ asset('vendor/bsb/css/style.css') }}" rel="stylesheet">
+
+    {{-- Carousel --}}
+    <link rel="stylesheet" href="{!! asset('vendor/vegas/vegas.min.css') !!}">
+    <style type="text/css">
+
+        .panel-info {
+        opacity: 0.9;
+        margin-top:30px;
+        }
+        .form-group.last { margin-bottom:0px; }
+        .vertical-center {
+          min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+          min-height: 100vh; /* These two lines are counted as one :-)       */
+
+          display: flex;
+          align-items: center;
+        }
+    </style>
+    
 </head>
 
 <body class="login-page" style="background-image: url({{ asset('vendor/bsb/images/back2.jpg') }}) !important; background-size: cover;>
     <div class="login-box">
         <div class="logo">
-            <a href="{{ url('/') }}" style="color: #918787 !important;">Kleid<b>Boutique</b></a>
+            <a href="{{ url('/') }}" style="color: #918787 !important;">Kleid<b> Boutique</b></a>
             <small style="color: #918787 !important;">Moda al alcance</small>
         </div>
         <div class="card">
@@ -53,6 +74,30 @@
     <!-- Custom Js -->
     <script src="{{ asset('vendor/bsb/js/admin.js') }}"></script>
     <script src="{{ asset('vendor/bsb/js/pages/examples/sign-in.js') }}"></script>
+
+    <script src="{!! asset('vendor/vegas/vegas.min.js') !!}"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $("#example, body").vegas({
+                delay: 5000,
+                timer: false,
+                shuffle: true,
+                firstTransition: 'fade',
+                firstTransitionDuration: 5000,
+                transition: 'fade',
+                transitionDuration: 15000,
+                overlay: false,
+                slides: [
+                    { src: "{!! asset('img/slider/1.jpg') !!}" }, 
+                    { src: "{!! asset('img/slider/2.jpg') !!}" },
+                    { src: "{!! asset('img/slider/3.jpg') !!}" }
+
+                ]
+            });
+        });
+
+    </script>
+
 </body>
 
 </html>

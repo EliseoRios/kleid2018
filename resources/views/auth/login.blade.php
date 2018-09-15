@@ -14,7 +14,7 @@
             <i class="material-icons">person</i>
         </span>
         <div class="form-line">
-            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Correo electrónico" required autofocus>
 
             @if ($errors->has('email'))
                 <span class="invalid-feedback" role="alert">
@@ -28,7 +28,7 @@
             <i class="material-icons">lock</i>
         </span>
         <div class="form-line">
-            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Contraseña" required>
 
             @if ($errors->has('password'))
                 <span class="invalid-feedback" role="alert">
@@ -43,7 +43,7 @@
             <label for="rememberme">{{ __('Remember Me') }}</label>
         </div>
         <div class="col-xs-4">
-            <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+            <button class="btn btn-block bg-pink waves-effect" type="submit">ENTRAR</button>
         </div>
     </div>
     <div class="row m-t-15 m-b--20">

@@ -13,7 +13,7 @@
             <i class="material-icons">person</i>
         </span>
         <div class="form-line">
-            <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+            <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Nombre" required autofocus>
 
             @if ($errors->has('name'))
                 <span class="invalid-feedback" role="alert">
@@ -27,7 +27,7 @@
             <i class="material-icons">email</i>
         </span>
         <div class="form-line">
-            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Correo electrónico" required>
 
             @if ($errors->has('email'))
                 <span class="invalid-feedback" role="alert">
@@ -41,7 +41,7 @@
             <i class="material-icons">lock</i>
         </span>
         <div class="form-line">
-            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Contraseña" required>
 
             @if ($errors->has('password'))
                 <span class="invalid-feedback" role="alert">
@@ -55,20 +55,20 @@
             <i class="material-icons">lock</i>
         </span>
         <div class="form-line">
-            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+            <input id="password-confirm" type="password" class="form-control" placeholder="Confirmar contraseña" name="password_confirmation" required>
         </div>
     </div>
-    <div class="form-group">
+    {{-- <div class="form-group">
         <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">
         <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>
-    </div>
+    </div> --}}
 
     <button type="submit" class="btn btn-block btn-lg bg-pink waves-effect">
         {{ __('Register') }}
     </button>
 
     <div class="m-t-25 m-b--5 align-center">
-        <a href="{{ url('/') }}">You already have a membership?</a>
+        <a href="{{ url('/') }}">Ya estás registrado?</a>
     </div>
 </form>
 @endsection

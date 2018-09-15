@@ -23,7 +23,7 @@ class CreateVentasTable extends Migration
                 $table->bigInteger('productos_id')->default(0);
                 $table->bigInteger('productosdetalles_id')->default(0);
 
-                $table->integer('tipo_venta')->default(0);
+                $table->integer('tipo_venta')->default(0);//abono/venta
 
                 $table->double('pago',19,2)->default(0.00);
                 $table->double('comision',19,2)->default(0.00);
