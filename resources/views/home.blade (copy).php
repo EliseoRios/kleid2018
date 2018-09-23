@@ -321,8 +321,6 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('vendor/bsb/js/pages/index.js') }}"></script>
-    
     <script type="text/javascript">
         $(function(){        
         });

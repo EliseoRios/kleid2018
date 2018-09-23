@@ -39,9 +39,9 @@ class UsuariosController extends Controller
 
             if (Auth::user()->permiso(array('menu',9001)) == 2 ) {
 
-                $opciones = '<a href="'. url('usuarios/editar/'.  Hashids::encode($usuario->id) ) .'" class="btn btn-primary btn-xs " title="Consultar">    <i class="fa fa-folder-open"></i> </a>
-                     <a href="'. url('usuarios/eliminar/'.  Hashids::encode($usuario->id) ) .'"  onclick="return confirm('."' Eliminar usuario ?'".')" class="btn btn-danger btn-xs " title="eliminar">   <i class="fa fa-trash"></i> </a>
-            ';
+                $opciones = '<a href="'. url('usuarios/editar/'.  Hashids::encode($usuario->id) ) .'" class="btn btn-xs btn-primary" title="Consultar"><i class="material-icons">edit</i> </a>';
+
+                $opciones .= '<a href="'. url('usuarios/eliminar/'.  Hashids::encode($usuario->id) ) .'"  onclick="return confirm('."' Eliminar usuario ?'".')" class="btn btn-xs btn-danger" title="Eliminar"><i class="material-icons">delete</i> </a>';
 
             } 
 
@@ -78,8 +78,6 @@ class UsuariosController extends Controller
          $usuario->nombre    = $request->nombre;
          $usuario->email     = $request->email;
          $usuario->password  = Hash::make($request->password);
-         $usuario->empresas_id = Auth::user()->empresa_actual;
-         $usuario->empresas_permitidas = Auth::user()->empresa_actual;
                
          $usuario->save();
 
@@ -115,6 +113,7 @@ class UsuariosController extends Controller
             $usuario->email = ($request->email != null)?$request->email:"";
             $usuario->telefonos = ($request->telefonos != null)?$request->telefonos:"";
             $usuario->departamentos_id = ($request->departamentos_id != null)?$request->departamentos_id:0;
+            $usuario->genero = ($request->genero != null)?$request->genero:0;
 
             if ($request->password != "")
                 $usuario->password = Hash::make($request->password);

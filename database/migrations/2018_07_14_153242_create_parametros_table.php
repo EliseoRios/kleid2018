@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConfiguracionTable extends Migration
+class CreateParametrosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateConfiguracionTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('configuracion')) {
-            Schema::create('configuracion', function (Blueprint $table) {
+        if (!Schema::hasTable('parametros')) {
+            Schema::create('parametros', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->bigInteger('usuarios_id')->default(0);
 
@@ -36,6 +36,6 @@ class CreateConfiguracionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('configuracion');
+        Schema::dropIfExists('parametros');
     }
 }

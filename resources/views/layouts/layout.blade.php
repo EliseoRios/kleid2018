@@ -8,7 +8,7 @@
 
     <title>Kleid | @yield('title')</title>
     <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    {{-- <link rel="icon" href="favicon.ico" type="image/x-icon"> --}}
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -73,7 +73,9 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">ADMINBSB - MATERIAL DESIGN</a>
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <strong>Kleid</strong> Boutique
+                </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -486,7 +488,7 @@
     <script src="{{ asset('vendor/bsb/plugins/bootstrap/js/bootstrap.js') }}"></script>
 
     <!-- Select Plugin Js -->
-    <script src="{{ asset('vendor/bsb/plugins/bootstrap-select/js/bootstrap-select.js') }}"></script>
+    {{-- <script src="{{ asset('vendor/bsb/plugins/bootstrap-select/js/bootstrap-select.js') }}"></script> --}}
 
     <!-- Slimscroll Plugin Js -->
     <script src="{{ asset('vendor/bsb/plugins/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
@@ -516,10 +518,14 @@
 
     <!-- Custom Js -->
     <script src="{{ asset('vendor/bsb/js/admin.js') }}"></script>
-    <script src="{{ asset('vendor/bsb/js/pages/index.js') }}"></script>
+    {{-- <script src="{{ asset('vendor/bsb/js/pages/index.js') }}"></script> --}}
 
     <!-- Demo Js -->
     <script src="{{ asset('vendor/bsb/js/demo.js') }}"></script>
+
+    {{-- <script src="{{ asset('vendor/bsb/js/pages/tables/jquery-datatable.js') }}"></script> --}}
+
+    @yield('script')
 </body>
 
 </html>

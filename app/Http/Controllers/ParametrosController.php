@@ -4,46 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Configuracion;
+use App\Models\Parametros;
 
 use Hashids;
 use Auth;
 use Datatables;
 
-class ConfiguracionController extends Controller
+class ParametrosController extends Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-    public function obtener($id){
-        $material = Materiales::find($id);
-
-        return response()->json([
-            'material' => $material
-        ]);
-    }
-
     public function index(Request $request) {
         if(Auth::user()->permiso(array('menu',9002)) < 1 )
             return redirect()->back();
 
-        return view('configuracion.index');
+        return view('parametros.index');
     }
 
     public function datatables() {
 
-        $datos = Configuracion::activos()->get();
+        $datos = Parametros::activos()->get();
 
         return Datatables::of($datos)
         ->editcolumn('id',function ($registro) {
 
             $opciones = "";
 
-            if (Auth::user()->permiso(array('menu',9002)) > 0) {
+            if (Auth::user()->permiso(array('menu',9002)) == 2 ) {
 
-                $opciones = '<a class="btn btn-primary btn-xs" title="Consultar" data-identifier="'.Hashids::encode($registro->id).'" data-formulario="editar" data-toggle="modal" data-target="#modalPagoLS" style="margin-right: 4px;">    <i class="fa fa-folder-open"></i> </a>';
+                $opciones = '<a class="btn btn-primary btn-xs" title="Editar" data-identifier="'.Hashids::encode($registro->id).'" data-formulario="editar" data-toggle="modal" data-target="#modalParametros" style="margin-right: 4px;"><i class="material-icons">edit</i> </a>';
             }
 
             /*if (Auth::user()->permiso(array('menu',9002)) == 2) {
@@ -64,14 +56,14 @@ class ConfiguracionController extends Controller
         if(Auth::user()->permiso(array('menu',9002)) < 2)
             return redirect()->back();
 
-        return view('configuracion.formularios.crear');
+        return view('parametros.formularios.crear');
     }
 
     public function guardar(Request $request) {
         if(Auth::user()->permiso(array('menu',9002)) < 2)
             return redirect()->back();
 
-        $parametro = new Configuracion;
+        $parametro = new Parametros;
 
         $parametro->identificador = ($request->identificador != null)?$request->identificador:"";
         $parametro->nombre   = ($request->nombre != null)?$request->nombre:"";
@@ -91,9 +83,9 @@ class ConfiguracionController extends Controller
         if ($id[0] == null)
             return redirect()->back();
         
-        $parametro = Configuracion::find($id[0]);
+        $parametro = Parametros::find($id[0]);
 
-        return view('configuracion.ver',compact('parametro'));
+        return view('parametros.ver',compact('parametro'));
     }
 
     public function editar($hash_id){
@@ -105,16 +97,16 @@ class ConfiguracionController extends Controller
         if ($id[0] == null)
             return redirect()->back();
 
-        $parametro = Configuracion::find($id[0]);
+        $parametro = Parametros::find($id[0]);
 
-        return view('configuracion.formularios.editar',compact('parametro'));
+        return view('parametros.formularios.editar',compact('parametro'));
     }
 
     public function actualizar(Request $request) {
         if(Auth::user()->permiso(array('menu',9002)) < 2)
             return redirect()->back();
 
-        $parametro = Configuracion::find($request->id);
+        $parametro = Parametros::find($request->id);
 
         if ($parametro) {
             $parametro->identificador = ($request->identificador != null)?$request->identificador:"";
@@ -133,7 +125,7 @@ class ConfiguracionController extends Controller
 		
 		$id = Hashids::decode($hash_id);
                 
-        $parametro = Configuracion::find($id[0]);
+        $parametro = Parametros::find($id[0]);
 
 		if ($parametro) { 
 			$parametro->estatus = 0; 

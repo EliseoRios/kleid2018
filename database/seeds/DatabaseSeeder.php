@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MenusSeeder::class);
         $this->call(PermisosSeeder::class);
         $this->call(DepartamentosSeeder::class);
+        $this->call(ParametrosSeeder::class);
     }
 }

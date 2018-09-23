@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Configuracion extends Model
+class Parametros extends Model
 {
-    protected $table = "configuracion";
+    protected $table = "parametros";
 
     public function usuario(){
     	return $this->belongsTo('App\Models\Usuarios','usuarios_id','id');

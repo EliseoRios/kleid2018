@@ -6,254 +6,249 @@
 @endsection
 
 @section('breadcrumb')
-  <li class="breadcrumb-item"><a href="{!! URL::to('usuarios') !!}"><i class="fa fa-user"></i> Usuarios </a> </li>
+  <li><a href=""><i class="material-icons">home</i> Inicio</a></li>
+  <li class="breadcrumb-item"><a href="{!! URL::to('usuarios') !!}"><i class="material-icons">people</i> Usuarios </a> </li>
   <li class="breadcrumb-item active"><i class="fa fa-edit"></i> Editar </li>
 @endsection
  
 @section('content')
+<!-- Tabs With Icon Title -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+          <div class="header bg-cyan">
+              <h2>
+                  {{ $usuario->nombre }}
+              </h2>
+          </div>
+          <div class="body">
+              
+              <dir class="row">
 
-<div class="row">
-<div class="col-md-3">
+                <div class="col-md-3">
 
-  <!-- Informacion ventas -->
-  <div class="box box-primary">
-    <div class="box-body box-profile">
-      <img class="profile-user-img img-responsive img-circle" src="{{ asset('img/profile-temporal.jpg') }}" alt="User profile picture">
+                  <div class="thumbnail">
+                      <img class="profile-user-img img-responsive img-circle" src="{{ asset('img/profile-temporal.jpg') }}" alt="User profile picture">
+                      <div class="caption">
+                          
+                          <h3 class="profile-username text-center">{{ $usuario->nombre }}</h3>
 
-      <h3 class="profile-username text-center">{{ $usuario->nombre }}</h3>
+                          <p class="text-muted text-center">{{ $usuario->departamento->nombre or "N/D" }}</p>
 
-      <p class="text-muted text-center">{{ $usuario->departamento->nombre or "N/D" }}</p>
+                          <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                              <b>Ventas</b> <a class="pull-right">45</a>
+                            </li>
+                            <li class="list-group-item">
+                              <b>Clientes</b> <a class="pull-right">8</a>
+                            </li>
+                            <li class="list-group-item">
+                              <b>Poductividad</b> <a class="pull-right">89%</a>
+                            </li>
+                          </ul>
 
-      <ul class="list-group list-group-unbordered">
-        <li class="list-group-item">
-          <b>Ventas</b> <a class="pull-right">45</a>
-        </li>
-        <li class="list-group-item">
-          <b>Clientes</b> <a class="pull-right">8</a>
-        </li>
-        <li class="list-group-item">
-          <b>Poductividad</b> <a class="pull-right">89%</a>
-        </li>
-      </ul>
+                          <a href="#" onclick="return confirm('Desea eliminar?');" class="btn btn-danger btn-block"><b>Dar de baja</b></a>
 
-      <a href="#" onclick="return confirm('Desea eliminar?');" class="btn btn-danger btn-block"><b>Dar de baja</b></a>
+                      </div>
+                  </div>
+
+                </div>
+
+                <div class="col-md-9">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                      <li role="presentation" class="active">
+                          <a href="#perfil" data-toggle="tab">
+                              <i class="material-icons">face</i> PERFIL
+                          </a>
+                      </li>
+                      <li role="presentation">
+                          <a href="#permisos" data-toggle="tab">
+                              <i class="material-icons">dashboard</i> PERMISOS
+                          </a>
+                      </li>
+                      <li role="presentation">
+                          <a href="#ventas" data-toggle="tab">
+                              <i class="material-icons">store</i> VENTAS
+                          </a>
+                      </li>
+                  </ul>
+
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+
+                    {{-- Perfil --}}
+                    <div role="tabpanel" class="tab-pane fade in active" id="perfil">
+                      @if(Auth::user()->permiso(array('menu',9001)) == 2)
+                        <div align="right">
+                            <a href="#" class="btn btn-primary btn-xs" id="boton_editar" title="Consultar"><i class="material-icons">edit</i>  </a>          
+                        </div>
+                      @endif
+                      
+                      {!! Form::open(array('action' => 'UsuariosController@actualizar','class'=>'form','role'=>'form')) !!}
+
+                      <div class="form-group" >
+                        {!! Form::label('Nombre : ',null, array('class'=>'control-label')) !!} 
+                        <div class="form-inline">
+
+                          {!! Form::text('nombre',$usuario->nombre ,array( 'class' => 'form-control', 'placeholder' => 'Nombre completo del usuario', 'readonly'=>'false')) !!} 
+                          <p class="text-danger"> {!! $errors->first('nombre')!!} </p>
+                        </div>
+
+                      </div>  
+
+                      <div class="form-group">
+                        {!! Form::label('Correo :',null, array('class'=>'control-label')) !!}
+                        <div class="form-inline">
+                          {!! Form::email('email',$usuario->email,array( 'class' => 'form-control','placeholder' => 'Correo Electronico', 'readonly'=>'readonly')) !!}
+                          <p class="text-danger"> {!! $errors->first('email')!!} </p>
+                        </div>                
+                      </div>  
+
+                      <div class="form-group">
+                        {!! Form::label('Telefono(s) :',null, array('class'=>'control-label')) !!}
+                        <div class="form-inline">
+                          {!! Form::text('telefonos',$usuario->telefonos,array( 'class' => 'form-control','placeholder' => 'Telefonos', 'readonly'=>'readonly')) !!}
+                          <p class="text-danger"> {!! $errors->first('telefonos')!!} </p>
+                        </div>                
+                      </div>  
+
+                      <div class="form-group">
+                        {!! Form::label('Contraseña :', null, array('class'=>'control-label')) !!}
+                        <div class="form-inline">
+                          {!! Form::text('password','',array( 'class' => 'form-control','placeholder' => 'Contraseña', 'readonly'=>'readonly')) !!}
+                          <p class="text-danger"> {!! $errors->first('password')!!} </p>
+                        </div>
+
+                      </div>
+
+                      <div class="form-group">
+                        {!! Form::label('Departamento :', null, array('class'=>'control-label')) !!}
+
+                        <div form-inline>
+                          {!! Form::select('departamentos_id',$departamentos,$usuario->departamentos_id,array( 'class' => 'form-control  show-tick select','placeholder' => '-- Seleccione departamento --', 'disabled'=>'disabled')) !!}
+                        </div>
+                          <p class="text-danger"> {!! $errors->first('departamentos')!!} </p>
+                      </div>
+
+                      {!! Form::hidden('id',$usuario->id)!!}
+                      <div align="right" class="box-footer">
+
+                        <div class="icon-and-text-button-demo">
+                          <button type="submit" class="btn btn-primary"  id="boton_grabar", secure = null style="display:none"> 
+                            <i class="material-icons">save</i> 
+                            <span>Guardar</span>
+                          </button>
+                        </div>
+                        
+                      </div>
+
+                      {!! Form::close()!!}    
+                    </div>
+
+                    {{-- Permisos --}}
+                    <div role="tabpanel" class="tab-pane fade" id="permisos">
+
+                      @if( Auth::user()->permiso(array('menu',9001)) == 2)   
+                      <div align="right" style="padding-bottom:20px">
+
+                        <div class="btn-group pull-left" id="botonesTodosPermisos" style="display: none;" title="Selección rápida de permisos globales">
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="material-icons">star</i>
+                              Permisos Globales <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a id="btnAccesoTotal"><i class="material-icons">brightness_auto</i> Acceso Total</a></li>
+                                <li><a id="btnAccesoLectura"><i class="material-icons">format_align_justify</i> Acceso Lectura</a></li>
+                                <li><a id="btnRemoverPermisos"><i class="material-icons">remove_circle</i> Remover permisos</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="icon-and-text-button-demo">
+                          <a class="btn btn-primary btn-xs" id="boton_editar2" title="Consultar">
+                            <i class="material-icons">edit</i>
+                            <span>Editar</span>
+                          </a>
+                        </div>    
+                      </div>
+                      @endif
+
+                      {!! Form::open(array('action' => 'UsuariosController@update_permisos','class'=>'','role'=>'form')) !!}
+
+                      <div class="panel-group" id="accordion_10" role="tablist" aria-multiselectable="true">
+
+                          <?php $elemento= 0;?>
+                                
+                          @foreach ($menus as $menu)
+
+                          <div class="panel panel-col-cyan">
+                              <div class="panel-heading" role="tab" id="headingTwo_10">
+                                  <h4 class="panel-title">
+                                      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_10" href="##{!! substr($menu->codigo,0,2) !!}" aria-expanded="false" aria-controls="collapseTwo_10">
+                                          {!! $menu->area !!}
+                                      </a>
+                                  </h4>
+                              </div>
+                              <div id="{!! substr($menu->codigo,0,2) !!}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_10">
+                                  <div class="panel-body">
+                                     
+                                     <?php                                     
+                                        $opcs   = DB::table('menus')->where( DB::raw('substr(codigo,1,2)'),'=',substr($menu->codigo,0,2) )->select('id','codigo','dependencia','area','opcion','url')->get();                                    
+                                     ?>      
+
+                                     @foreach( $opcs as $opc)
+                                     {!! Form::label($opc->codigo,$opc->opcion, array()) !!}
+                                     <div class="form-group">
+
+                                       {!! Form::select($opc->codigo,$opciones, $usuario->permiso(array('menu',$opc->codigo)) ,array( 'class' => 'form-control opciones', 'disabled'=>'disabled')) !!}
+                                     </div>
+                                     <?php $elemento  = $elemento + 1; ?>
+                                     @endforeach
+
+                                  </div>
+                              </div>
+                          </div>
+                          @endforeach
+
+                          {!! Form::hidden('usuario_id',$usuario->id)!!}
+
+                          <br>
+
+                          <div align="right" class="box-footer">
+                            <button type="submit" class="btn btn-primary"  id="boton_grabar2", secure = null style="display:none"> 
+                              <i class="material-icons">save</i>
+                              <span>Guardar</span>
+                            </button>
+                          </div>
+
+                      </div>
+                      {!! Form::close() !!}
+                      
+                    </div>
+
+                    {{-- Ventas --}}
+                    <div role="tabpanel" class="tab-pane fade" id="ventas">
+                        <b>Message Content</b>
+                        <p>
+                            Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                            Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                            pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                            sadipscing mel.
+                        </p>
+                    </div>
+
+                  </div>
+                </div>
+                
+              </dir>
+
+          </div>
+      </div>
+
+        
     </div>
-    <!-- /.box-body -->
-  </div>
-  <!-- /Informacion ventas -->
-
 </div>
-<!-- /.col -->
-
-
-<div class="col-md-9">
-  <div class="nav-tabs-custom">
-
-  	{{-- Tabs Header --}}
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#informacion" data-toggle="tab">Información</a></li>
-      <li><a href="#permisos" data-toggle="tab">Permisos</a></li>
-      <li><a href="#productividad" data-toggle="tab">Productividad</a></li>
-      <li><a href="#Ventas" data-toggle="tab">Ventas</a></li>
-    </ul>
-    {{-- /Tabs Header --}}
-
-    {{-- Tab content --}}
-    <div class="tab-content">
-
-      {{-- Tab informacion --}}
-      <div class="active tab-pane" id="informacion">
-
-        <div class="box box-info">
-            <div class="box-header with-border">Datos del usuario</div>
-            <div class="box-body"> 
-            	@if(Auth::user()->permiso(array('menu',9001)) == 2) 
-            	   
-        			<div align="right">
-                     <a href="#" class="btn btn-primary btn-xs  fa fa-edit fa4x" id="boton_editar" title="Consultar">  </a>          
-        			</div>
-        		@endif
-        		
-        		{!! Form::open(array('action' => 'UsuariosController@actualizar','class'=>'form-horizontal','role'=>'form')) !!}
-
-        				<div class="form-group" >
-        	 				{!! Form::label('Nombre : ',null, array('class'=>'col-sm-2 control-label')) !!}	
-        	 				<div class="input-group col-sm-8">
-
-        	 					{!! Form::text('nombre',$usuario->nombre ,array( 'class' => 'form-control', 'placeholder' => 'Nombre completo del usuario', 'readonly'=>'false')) !!} 
-        	 					<p class="text-danger">	{!! $errors->first('nombre')!!} </p>
-        	 				</div>
-        					
-        	 			</div>	
-        				
-        				<div class="form-group">
-        	 				{!! Form::label('Correo :',null, array('class'=>'col-sm-2 control-label')) !!}
-        	 				<div class="input-group col-sm-8">
-        	 					{!! Form::email('email',$usuario->email,array( 'class' => 'form-control','placeholder' => 'Correo Electronico', 'readonly'=>'readonly')) !!}
-        	 				  <p class="text-danger">	{!! $errors->first('email')!!} </p>
-        	 				</div>        	 			
-        	 			</div>	
-
- 						<div class="form-group">
- 			 				{!! Form::label('Telefono(s) :',null, array('class'=>'col-sm-2 control-label')) !!}
- 			 				<div class="input-group col-sm-8">
- 			 					{!! Form::text('telefonos',$usuario->telefonos,array( 'class' => 'form-control','placeholder' => 'Telefonos', 'readonly'=>'readonly')) !!}
- 			 				  <p class="text-danger">	{!! $errors->first('telefonos')!!} </p>
- 			 				</div>        	 			
- 			 			</div>	
-
-        	 			<div class="form-group">
-        	 				{!! Form::label('Contraseña :', null, array('class'=>'col-sm-2 control-label')) !!}
-        	 				<div class="input-group col-sm-8">
-        	 					{!! Form::text('password','',array( 'class' => 'form-control','placeholder' => 'Contraseña', 'readonly'=>'readonly')) !!}
-        	 					<p class="text-danger">	{!! $errors->first('password')!!} </p>
-        	 				</div>
-        	 				
-        	 			</div>
-
-        	 			<div class="form-group">
-        	 				{!! Form::label('Departamento :', null, array('class'=>'col-sm-2 control-label')) !!}
-
-        	 				<div class="input-group col-sm-8">
-        	 					{!! Form::select('departamentos_id',$departamentos,$usuario->departamentos_id,array( 'class' => 'form-control select','placeholder' => '-- Seleccione departamento --', 'disabled'=>'disabled')) !!}
-        	 					<p class="text-danger">	{!! $errors->first('departamentos')!!} </p>
-        	 				</div>        	 				
-        	 			</div>
-
-        	 			{!! Form::hidden('id',$usuario->id)!!}
-        				<div align="right" class="box-footer">
-                    	    <button type="submit" class="btn btn-primary"  id="boton_grabar", secure = null style="display:none"> <i class="fa fa-floppy-o" aria-hidden="true" ></i> Grabar</button>
-        				</div>
-        				
-        		{!! Form::close()!!}			
-
-            </div>
-        </div>
-
-      </div>
-      <!-- /Tab informacion -->
-
-      {{-- Tab permisos --}}
-      <div class="tab-pane" id="permisos">
-
-      	<!-- Permisos -->
-      	<div class="box box-info">
-      	    <div class="box-header with-border">Permisos</div>
-      	    <div class="box-body">
-
-      	    	@if( Auth::user()->permiso(array('menu',9001)) == 2)   
-      				<div align="right" style="padding-bottom:20px">
-
-      				<div class="btn-group pull-left" id="botonesTodosPermisos" style="display: none;" title="Selección rápida de permisos globales">
-      				 <button class="btn btn-success" data-toggle="dropdown"><i class="fa fa-star-o"></i> Permisos Globales</button>
-      			     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-      			        <span class="caret"></span>
-      			     </button>
-
-      			      <ul class="dropdown-menu" role="menu">
-      			        <li><a id="btnAccesoTotal"><i class="fa fa-android"></i> Acceso Total</a></li>
-      			        <li><a id="btnAccesoLectura"><i class="fa fa-book"></i> Acceso Lectura</a></li>
-      			        <li><a id="btnRemoverPermisos"><i class="fa fa-user-times"></i> Remover permisos</a></li>
-      			      </ul>
-
-      			    </div>
-
-      	             <a class="btn btn-primary btn-xs  fa fa-edit fa4x" id="boton_editar2" title="Consultar">  </a>         
-      				</div>
-      			@endif
-
-
-      			{!! Form::open(array('action' => 'UsuariosController@update_permisos','class'=>'form-horizontal','role'=>'form')) !!}
-      						
-
-      		    <?php $elemento= 0;?>
-      		    				
-      		    @foreach ($menus as $menu) 
-
-      				
-      				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      					  <div class="panel panel-default">
-      					    <div class="panel-heading" role="tab" id="headingOne">
-      					      <h4 class="panel-title">
-      					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{!! substr($menu->codigo,0,2) !!} " aria-expanded="true" aria-controls="collapseOne">
-      					          {!! $menu->area !!}
-      					        </a>
-      					      </h4>
-      					    </div>
-      					    <div id="{!! substr($menu->codigo,0,2) !!}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-      					      <div class="panel-body">
-      					     
-      					      <?php 
-      					     
-      					      	 $opcs   = DB::table('menus')->where( DB::raw('substr(codigo,1,2)'),'=',substr($menu->codigo,0,2) )->select('id','codigo','dependencia','area','opcion','url')->get();
-      					     
-      					      ?>			
-
-      						  @foreach( $opcs as $opc)
-
-
-      							<div class="form-group">
-      		 						{!! Form::label($opc->codigo,$opc->opcion, array('class'=>'col-sm-4 control-label')) !!}
-      				 				<div class="input-group col-sm-2">
-
-      				 					{!! Form::select($opc->codigo,$opciones, $usuario->permiso(array('menu',$opc->codigo)) ,array( 'class' => 'form-control opciones', 'disabled'=>'disabled')) !!}
-      				 					
-      				 				</div>
-      		 					</div>
-      		 					<?php $elemento  = $elemento + 1; ?>
-      		 				  @endforeach
-
-      					      </div>
-      					    </div>
-      					  </div>
-      				</div>
-      				@endforeach
-
-      				<div class="col-md-12">
-      					
-      					{{-- <div class="form-ckeck">
-      						{!! Form::label('permiso_supervisor_crm', 'Permiso supervisar CRM', ['class'=>'form-check-label']) !!}
-
-      						{!! Form::checkbox('permiso_supervisor_crm', 1, ($permiso_supervisor_crm == 1)?true:false, ['class'=>'form-check-input opciones', 'disabled'=>'disabled']) !!}
-      					</div>	 --}}
-
-      				</div>
-      				
-      				{!! Form::hidden('usuario_id',$usuario->id)!!}
-
-      				<div align="right" class="box-footer">
-      	        	    <button type="submit" class="btn btn-primary"  id="boton_grabar2", secure = null style="display:none"> <i class="fa fa-floppy-o" aria-hidden="true" ></i> Grabar</button>
-      				</div>
-
-      			{!! Form::close() !!}
-
-      			
-
-      	    </div>
-      	</div>
-      	<!-- /Permisos -->
-
-      </div>
-      <!-- /Tab permisos -->
-
-      {{-- Tab Productividad --}}
-      <div class="tab-pane" id="productividad">
-      </div>
-      {{-- /Tab Productividad --}}
-
-      {{-- Tab Ventas --}}
-      <div class="tab-pane" id="ventas">
-      </div>
-      {{-- /Tab Ventas --}}
-
-    </div>
-    <!-- /.tab-content -->
-  </div>
-  <!-- /.nav-tabs-custom -->
-</div>
-<!-- /.col -->
-</div>
-<!-- /.row -->
+<!-- #END# Tabs With Icon Title -->
 
 @endsection
 
@@ -323,17 +318,6 @@
 				$('#smtp_security').removeAttr("disabled");
 
 				$('.empresas_id').removeAttr("disabled",false);
-
-			});
-		 
-			$('#boton_editar2').click(function(event) {
-
-				event.preventDefault();
-				$('#boton_grabar2').show();
-				$('.opciones').removeAttr("disabled",false);
-				$('.permiso-checkbox').removeAttr("disabled",false);
-				$('#btnAdministrador').show();
-
 
 			});
 

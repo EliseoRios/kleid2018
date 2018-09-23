@@ -54,17 +54,17 @@ Route::group(['middleware' => ['auth']], function () {
 	//Configuracion/Parametros
 	Route::group(['prefix'=>'parametros'], function(){
 
-		Route::get('/', 'ConfiguracionController@index');
-		Route::get('datatables', 'ConfiguracionController@datatables');
-		Route::get('crear', 'ConfiguracionController@crear');
-		Route::get('ver/{id}', 'ConfiguracionController@ver');
-		Route::get('editar/{id}', 'ConfiguracionController@editar');
-		Route::get('eliminar/{id}', 'ConfiguracionController@eliminar');
+		Route::get('/', 'ParametrosController@index');
+		Route::get('datatables', 'ParametrosController@datatables');
+		Route::get('crear', 'ParametrosController@crear');
+		Route::get('ver/{id}', 'ParametrosController@ver');
+		Route::get('editar/{id}', 'ParametrosController@editar');
+		Route::get('eliminar/{id}', 'ParametrosController@eliminar');
 
-		Route::get('obtener/{id}', 'ConfiguracionController@obtener');
+		Route::get('obtener/{id}', 'ParametrosController@obtener');
 
-		Route::post('guardar','ConfiguracionController@guardar');
-		Route::post('actualizar','ConfiguracionController@actualizar');
+		Route::post('guardar','ParametrosController@guardar');
+		Route::post('actualizar','ParametrosController@actualizar');
 
 	});
 
